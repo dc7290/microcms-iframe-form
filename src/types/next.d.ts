@@ -3,7 +3,7 @@
 import type { NextComponentType, NextPage, NextPageContext, NextLayoutComponentType } from 'next'
 import type { AppProps } from 'next/app'
 
-import { LayoutProps } from '../components/layout/Layout'
+import { LayoutProps } from '../components/Layout'
 
 declare module 'next' {
   type NextLayoutComponentType<P = {}> = NextComponentType<NextPageContext, any, P> & {

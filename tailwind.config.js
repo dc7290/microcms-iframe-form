@@ -2,8 +2,7 @@ module.exports = {
   content: ['./src/components/**/*.{js,ts,tsx}', './pages/**/*.{js,ts,tsx}'],
   theme: {
     fontFamily: {
-      sans: ['Zen Kaku Gothic New', 'sans-serif'],
-      mono: ['Roboto Mono', 'monospace'],
+      sans: ['Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', 'sans-serif'],
     },
     fontSize: {
       xs: '.75rem',
@@ -32,6 +31,6 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
   corePlugins: {},
 }

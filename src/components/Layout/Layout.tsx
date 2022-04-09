@@ -5,7 +5,7 @@ export type Props = {
 }
 
 const Layout = ({ children }: Props) => (
-  <main tabIndex={-1} id="main" className="">
+  <main tabIndex={-1} id="main">
     {children}
   </main>
 )
