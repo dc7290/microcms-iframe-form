@@ -1,11 +1,10 @@
 {
   "name": "microcms-iframe-form",
-  "description": "",
+  "description": "microCMSのiframeフィールドでフォーム作成を行います",
   "license": "MIT",
   "scripts": {
     "analyze": "ANALYZE=true yarn build",
-    "create:fc": "hygen new fc",
-    "create:pc": "hygen new pc",
+    "create-component": "hygen new fc",
     "dev": "run-p dev:*",
     "dev:next": "next dev",
     "dev:path": "pathpida --watch --output src/utils",

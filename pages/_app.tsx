@@ -1,17 +1,16 @@
 import '~/src/styles/index.css'
 
-import { AppLayoutProps } from 'next/app'
+import { AppProps } from 'next/app'
 
-import { Layout } from '~/src/components/Layout'
+import { CurrentTargetIdProvider } from '~/src/components/contexts/currentTagetId'
 
-const MyApp = ({ Component, pageProps }: AppLayoutProps) => {
-  const layoutProps =
-    typeof Component.layoutProps === 'function' ? Component.layoutProps(pageProps) : Component.layoutProps
-
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <Layout {...layoutProps}>
-      <Component {...pageProps} />
-    </Layout>
+    <CurrentTargetIdProvider>
+      <main>
+        <Component {...pageProps} />
+      </main>
+    </CurrentTargetIdProvider>
   )
 }
 

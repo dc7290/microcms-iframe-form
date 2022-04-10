@@ -4,9 +4,9 @@ export type FormKind = typeof formKinds[number]
 type CommonField<T extends FormKind> = {
   kind: T
   title: string
-  placeholder: string
+  placeholder?: string
   isRequired: boolean
-  description: string
+  description?: string
 }
 
 export type TextField = CommonField<'text-field'>
@@ -58,3 +58,7 @@ export type TextArea = CommonField<'text-area'>
 // }
 
 export type Form = (TextField | TextArea)[]
+
+export type FormValuesType = {
+  form: Form
+}
