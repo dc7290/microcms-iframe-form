@@ -1,8 +1,13 @@
-const formKinds = ['text-field', 'text-area'] as const
-export type FormKind = typeof formKinds[number]
+export const formKinds = {
+  'text-field': 'テキストフィールド',
+  'text-area': 'テキストエリア',
+}
+
+export type FormKind = keyof typeof formKinds
 
 type CommonField<T extends FormKind> = {
   kind: T
+  fieldId: string
   title: string
   placeholder?: string
   isRequired: boolean
