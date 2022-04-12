@@ -20,7 +20,11 @@ const TextField = ({ index, control, watch, isNoTarget, ...fieldWrapperProps }: 
     <FieldWrapper isNoTarget={isNoTarget} {...fieldWrapperProps}>
       <div aria-hidden={isNoTarget} className="space-y-1">
         <div className="flex items-center">
-          <Title tabIndex={isNoTarget ? -1 : 0} {...{ index, control }} />
+          <Title
+            tabIndex={isNoTarget ? -1 : 0}
+            index={index}
+            controllerProps={{ control, defaultValue: '一行テキスト' }}
+          />
           <AnimatePresence>
             {watch(`form.${index}.isRequired`) && (
               <motion.div
@@ -35,8 +39,8 @@ const TextField = ({ index, control, watch, isNoTarget, ...fieldWrapperProps }: 
             )}
           </AnimatePresence>
         </div>
-        <Placeholder tabIndex={isNoTarget ? -1 : 0} {...{ index, control }} />
-        <Description tabIndex={isNoTarget ? -1 : 0} {...{ index, control }} />
+        <Placeholder tabIndex={isNoTarget ? -1 : 0} index={index} controllerProps={{ control, defaultValue: '' }} />
+        <Description tabIndex={isNoTarget ? -1 : 0} index={index} controllerProps={{ control, defaultValue: '' }} />
       </div>
     </FieldWrapper>
   )

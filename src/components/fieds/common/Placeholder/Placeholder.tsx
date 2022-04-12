@@ -1,27 +1,32 @@
 import clsx from 'clsx'
-import { ComponentProps } from 'react'
-import { Control, useController } from 'react-hook-form'
+import { ComponentProps, useId } from 'react'
+import { useController, UseControllerProps } from 'react-hook-form'
 
 import { FormValuesType } from '~/src/types/Form'
 
 type Props = {
   index: number
-  control: Control<FormValuesType>
+  controllerProps: Pick<
+    UseControllerProps<FormValuesType, `form.${number}.placeholder`>,
+    'defaultValue' | 'rules' | 'control'
+  >
 } & ComponentProps<'input'>
 
-const Placeholder = ({ index, control, className, ...props }: Props) => {
+const Placeholder = ({ index, controllerProps, className, ...props }: Props) => {
   const name = `form.${index}.placeholder` as const
-  const { field } = useController({ name, control })
+  const { field } = useController({ name, ...controllerProps })
+
+  const id = useId()
 
   return (
     <div>
-      <label htmlFor={name} className="sr-only">
+      <label htmlFor={id} className="sr-only">
         プレースホルダー
       </label>
       <input
         {...{ ...field, value: field.value as string }}
         {...props}
-        id={name}
+        id={id}
         type="text"
         className={clsx(
           className,

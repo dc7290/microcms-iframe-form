@@ -21,8 +21,8 @@ const InputGroupControl = <FORM_TYPE,>({
   return (
     <InputGroup
       labelText={labelText}
-      labelProps={{ htmlFor: inputProps?.id ?? field.name, ...labelProps }}
-      inputProps={{ id: field.name, ...field, ...inputProps, value: field.value as string }}
+      labelProps={labelProps}
+      inputProps={{ ...field, ...inputProps, value: field.value as string }}
       className={className}
     />
   )
