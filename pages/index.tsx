@@ -6,6 +6,8 @@ import { Toaster } from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 
 import { EditSideBar } from '~/src/components/EditSideBar'
+import { PrimaryButton } from '~/src/components/PrimaryButton'
+import { SecondaryButton } from '~/src/components/SecondaryButton'
 import { useCurrentTargetIdSetValue, useCurrentTargetIdValue } from '~/src/components/contexts/currentTagetId'
 import { TextField } from '~/src/components/fieds/TextField'
 import { useMicrocms } from '~/src/hooks/useMicrocms'
@@ -60,19 +62,16 @@ const IndexPage = () => {
           <ul className="flex-1 space-y-4 overflow-y-auto pt-6 pl-4">
             {(Object.keys(formKinds) as FormKind[]).map((key) => (
               <li key={key}>
-                <button
-                  className="inline-flex items-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  type="button"
-                  onClick={handleAppend(key)}
-                >
+                <SecondaryButton type="button" onClick={handleAppend(key)}>
                   {formKinds[key]}
-                </button>
+                </SecondaryButton>
               </li>
             ))}
           </ul>
         </div>
 
         <EditSideBar fields={fields} handleRemove={handleRemove} />
+
         <motion.div layoutScroll className="h-full flex-1 overflow-y-auto py-10 px-16">
           {fields.length === 0 ? (
             <p className="mt-10 text-center text-sm text-gray-500">左の項目から選択してフィールドを追加してください</p>
@@ -100,14 +99,9 @@ const IndexPage = () => {
             </div>
           )}
           <div className="mt-10 flex justify-center">
-            <button
-              className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              type="button"
-              // eslint-disable-next-line no-console
-              onClick={handleSave}
-            >
+            <PrimaryButton type="button" onClick={handleSave}>
               保存する
-            </button>
+            </PrimaryButton>
           </div>
         </motion.div>
       </div>
