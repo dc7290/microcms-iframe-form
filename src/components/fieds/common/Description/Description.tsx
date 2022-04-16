@@ -1,20 +1,19 @@
 import clsx from 'clsx'
 import { ComponentProps, useId } from 'react'
-import { useController, UseControllerProps } from 'react-hook-form'
+import { useController, UseControllerProps, useFormContext } from 'react-hook-form'
 
 import { FormValuesType } from '~/src/types/Form'
 
 type Props = {
   index: number
-  controllerProps: Pick<
-    UseControllerProps<FormValuesType, `form.${number}.description`>,
-    'defaultValue' | 'rules' | 'control'
-  >
-} & ComponentProps<'textarea'>
+} & ComponentProps<'textarea'> &
+  Pick<UseControllerProps<FormValuesType, `form.${number}.description`>, 'defaultValue' | 'rules'>
 
-const Description = ({ index, controllerProps, className, ...props }: Props) => {
+const Description = ({ index, defaultValue = '', rules, className, ...props }: Props) => {
+  const { control } = useFormContext()
+
   const name = `form.${index}.description` as const
-  const { field } = useController({ name, ...controllerProps })
+  const { field } = useController({ name, control, defaultValue, rules })
 
   const id = useId()
 

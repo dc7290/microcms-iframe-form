@@ -1,21 +1,21 @@
-import { Switch } from '@headlessui/react'
 import XIcon from '@heroicons/react/outline/XIcon'
-import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Control, Controller, FieldArrayWithId } from 'react-hook-form'
+import { FieldArrayWithId, useFormContext } from 'react-hook-form'
 
 import { FormValuesType } from '~/src/types/Form'
 
 import { InputGroupControl } from '../InputGroupControl'
+import { SwitchGroupControl } from '../SwitchGroupControl'
 import { useCurrentTargetIdSetValue, useCurrentTargetIdValue } from '../contexts/currentTagetId'
 
 type Props = {
   fields: FieldArrayWithId<FormValuesType, 'form', 'id'>[]
   handleRemove: (index: number) => () => void
-  control: Control<FormValuesType>
 }
 
-const EditSideBar = ({ fields, handleRemove, control }: Props) => {
+const EditSideBar = ({ fields, handleRemove }: Props) => {
+  const { control } = useFormContext()
+
   const currentTargetId = useCurrentTargetIdValue()
   const setCurrentTargetId = useCurrentTargetIdSetValue()
 
@@ -54,34 +54,9 @@ const EditSideBar = ({ fields, handleRemove, control }: Props) => {
               >
                 <InputGroupControl control={control} name={`form.${index}.title`} labelText="タイトル" />
                 <InputGroupControl control={control} name={`form.${index}.placeholder`} labelText="プレースホルダー" />
-                <Controller
-                  name={`form.${index}.isRequired`}
-                  control={control}
-                  defaultValue={false}
-                  render={({ field: { value, onChange } }) => (
-                    <Switch.Group as="div" className="flex items-center">
-                      <Switch
-                        checked={value}
-                        onChange={(e) => onChange(e)}
-                        className={clsx(
-                          value ? 'bg-indigo-600' : 'bg-gray-400',
-                          'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
-                        )}
-                      >
-                        <span
-                          aria-hidden="true"
-                          className={clsx(
-                            value ? 'translate-x-5' : 'translate-x-0',
-                            'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out'
-                          )}
-                        />
-                      </Switch>
-                      <Switch.Label as="span" className="ml-3 cursor-pointer">
-                        <span className="text-sm">必須チェックを行う</span>
-                      </Switch.Label>
-                    </Switch.Group>
-                  )}
-                />
+                <SwitchGroupControl name={`form.${index}.isRequired`} control={control} defaultValue={false}>
+                  必須チェックを行う
+                </SwitchGroupControl>
               </motion.div>
             </AnimatePresence>
 
