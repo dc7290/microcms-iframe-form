@@ -1,4 +1,5 @@
 import { PlusCircleIcon } from '@heroicons/react/outline'
+import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import { useForm, useFieldArray, FormProvider } from 'react-hook-form'
 import { Toaster } from 'react-hot-toast'
@@ -17,7 +18,7 @@ const IndexPage = () => {
   const setCurrentTargetId = useCurrentTargetIdSetValue()
 
   const methods = useForm<FormValuesType>({})
-  const { fields, append, remove } = useFieldArray({ name: 'form', control: methods.control })
+  const { fields, append, remove, move, swap } = useFieldArray({ name: 'form', control: methods.control })
 
   useEffect(() => {
     if (data !== undefined) {
@@ -72,8 +73,7 @@ const IndexPage = () => {
         </div>
 
         <EditSideBar fields={fields} handleRemove={handleRemove} />
-
-        <div className="h-full flex-1 overflow-y-auto py-10 px-16">
+        <motion.div layoutScroll className="h-full flex-1 overflow-y-auto py-10 px-16">
           {fields.length === 0 ? (
             <p className="mt-10 text-center text-sm text-gray-500">左の項目から選択してフィールドを追加してください</p>
           ) : (
@@ -87,8 +87,11 @@ const IndexPage = () => {
                         key={field.id}
                         id={field.fieldId}
                         handleRemove={handleRemove(i)}
+                        move={move}
+                        swap={swap}
                         isNoTarget={isNoTarget}
                         index={i}
+                        length={fields.length}
                       />
                     )
                   }
@@ -106,10 +109,10 @@ const IndexPage = () => {
               保存する
             </button>
           </div>
-        </div>
-
-        <Toaster position="top-right" />
+        </motion.div>
       </div>
+
+      <Toaster position="top-right" />
     </FormProvider>
   )
 }

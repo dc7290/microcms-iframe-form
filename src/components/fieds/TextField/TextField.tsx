@@ -7,7 +7,6 @@ import { Placeholder } from '../common/Placeholder'
 import { Title } from '../common/Title'
 
 type Props = Omit<FieldWrapperProps, 'children' | 'className'> & {
-  index: number
   isNoTarget: boolean
 }
 
@@ -15,7 +14,7 @@ const TextField = ({ index, isNoTarget, ...fieldWrapperProps }: Props) => {
   const { watch } = useFormContext()
 
   return (
-    <FieldWrapper isNoTarget={isNoTarget} {...fieldWrapperProps}>
+    <FieldWrapper isNoTarget={isNoTarget} index={index} {...fieldWrapperProps}>
       <div aria-hidden={isNoTarget} className="space-y-1">
         <div className="flex items-center">
           <Title tabIndex={isNoTarget ? -1 : 0} index={index} defaultValue="一行テキスト" />
