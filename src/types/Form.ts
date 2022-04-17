@@ -1,43 +1,63 @@
-export const formKinds = {
-  'text-field': 'テキストフィールド',
-  'text-area': 'テキストエリア',
+export const formDefaultValues = {
+  name: {
+    title: 'お名前',
+    placeholder: '田中太郎',
+    description: 'フルネームで入力ください。',
+    isRequired: false,
+  },
+  email: {
+    title: 'メールアドレス',
+    placeholder: 'xxx@xxx.com',
+    description: 'yyy@yyy.comをフィルタリング設定から除外してください。',
+    isRequired: false,
+  },
+  tel: {
+    title: '電話番号',
+    placeholder: '09012345678,090-1234-5678',
+    description: '',
+    isRequired: false,
+  },
+  organization: {
+    title: '会社名',
+    placeholder: '株式会社サンプルコーポレーション',
+    description: '',
+    isRequired: false,
+  },
+  'address-of-one-line': {
+    title: '住所（一行）',
+    placeholder: '東京都〇〇〇',
+    description: '',
+    isRequired: false,
+  },
+  'text-field': {
+    title: 'カスタム一行テキスト',
+    placeholder: '',
+    description: '',
+    isRequired: false,
+  },
+  // 'text-area': {
+  //   title: 'テキストエリア',
+  //   placeholder: '',
+  //   description: '',
+  //   isRequired: false,
+  // },
 }
 
-export type FormKind = keyof typeof formKinds
+export type FormKind = keyof typeof formDefaultValues
 
 type CommonField<T extends FormKind> = {
   kind: T
   fieldId: string
-  title: string
-  placeholder?: string
-  isRequired: boolean
-  description?: string
-}
+} & typeof formDefaultValues[T]
 
-export type TextField = CommonField<'text-field'>
+type Name = CommonField<'name'>
+type Email = CommonField<'email'>
+type Tel = CommonField<'tel'>
+type Organization = CommonField<'organization'>
+type AddressOfOneLine = CommonField<'address-of-one-line'>
+type TextField = CommonField<'text-field'>
 
-export type TextArea = CommonField<'text-area'>
-
-// type Name = CommonField & {
-//   fieldId: 'name'
-// }
-
-// type Email = CommonField & {
-//   fieldId: 'email'
-//   isConfirm: boolean
-// }
-
-// type Tel = CommonField & {
-//   fieldId: 'tel'
-// }
-
-// type Organization = CommonField & {
-//   fieldId: 'organization'
-// }
-
-// type Address = CommonField & {
-//   fieldId: 'address'
-// }
+// type TextArea = CommonField<'text-area'>
 
 // type PostalCodeAndAddress = CommonField & {
 //   fieldId: 'postalCodeAndAddress'
@@ -62,7 +82,7 @@ export type TextArea = CommonField<'text-area'>
 //   items: Item[]
 // }
 
-export type Form = (TextField | TextArea)[]
+export type Form = (Name | Email | Tel | Organization | AddressOfOneLine | TextField)[]
 
 export type FormValuesType = {
   form: Form

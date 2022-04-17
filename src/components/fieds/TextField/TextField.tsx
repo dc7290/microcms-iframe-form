@@ -8,16 +8,21 @@ import { Title } from '../common/Title'
 
 type Props = Omit<FieldWrapperProps, 'children' | 'className'> & {
   isNoTarget: boolean
+  defaultValues?: {
+    title?: string
+    placeholder?: string
+    description?: string
+  }
 }
 
-const TextField = ({ index, isNoTarget, ...fieldWrapperProps }: Props) => {
+const TextField = ({ index, isNoTarget, defaultValues, ...fieldWrapperProps }: Props) => {
   const { watch } = useFormContext()
 
   return (
     <FieldWrapper isNoTarget={isNoTarget} index={index} {...fieldWrapperProps}>
       <div aria-hidden={isNoTarget} className="space-y-1">
         <div className="flex items-center">
-          <Title tabIndex={isNoTarget ? -1 : 0} index={index} defaultValue="一行テキスト" />
+          <Title tabIndex={isNoTarget ? -1 : 0} index={index} defaultValue={defaultValues?.title} />
           <AnimatePresence>
             {watch(`form.${index}.isRequired`) && (
               <motion.div
@@ -32,8 +37,13 @@ const TextField = ({ index, isNoTarget, ...fieldWrapperProps }: Props) => {
             )}
           </AnimatePresence>
         </div>
-        <Placeholder tabIndex={isNoTarget ? -1 : 0} index={index} />
-        <Description tabIndex={isNoTarget ? -1 : 0} index={index} />
+        <Placeholder tabIndex={isNoTarget ? -1 : 0} index={index} defaultValue={defaultValues?.placeholder} />
+        <Description
+          className="mt-4"
+          tabIndex={isNoTarget ? -1 : 0}
+          index={index}
+          defaultValue={defaultValues?.description}
+        />
       </div>
     </FieldWrapper>
   )

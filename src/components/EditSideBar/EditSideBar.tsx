@@ -2,7 +2,7 @@ import XIcon from '@heroicons/react/outline/XIcon'
 import { AnimatePresence, motion } from 'framer-motion'
 import { FieldArrayWithId, useFormContext } from 'react-hook-form'
 
-import { FormValuesType } from '~/src/types/Form'
+import { formDefaultValues, FormValuesType } from '~/src/types/Form'
 
 import { InputGroupControl } from '../InputGroupControl'
 import { SwitchGroupControl } from '../SwitchGroupControl'
@@ -21,10 +21,11 @@ const EditSideBar = ({ fields, handleRemove }: Props) => {
   const setCurrentTargetId = useCurrentTargetIdSetValue()
 
   const index = fields.findIndex(({ fieldId }) => currentTargetId === fieldId)
+  const kind = fields.find(({ fieldId }) => currentTargetId === fieldId)?.kind
 
   return (
     <AnimatePresence>
-      {currentTargetId !== null && (
+      {currentTargetId !== null && kind !== undefined && (
         <motion.div
           transition={{ ease: 'easeOut' }}
           initial={{ x: '-100%' }}
@@ -53,12 +54,52 @@ const EditSideBar = ({ fields, handleRemove }: Props) => {
                 exit={{ opacity: 0 }}
                 className="space-y-8 px-6 pb-2"
               >
-                <InputGroupControl control={control} name={`form.${index}.title`} labelText="タイトル" />
-                <InputGroupControl control={control} name={`form.${index}.placeholder`} labelText="プレースホルダー" />
-                <TextareaGroupControl control={control} name={`form.${index}.description`} labelText="説明" />
-                <SwitchGroupControl name={`form.${index}.isRequired`} control={control} defaultValue={false}>
-                  必須チェックを行う
-                </SwitchGroupControl>
+                {Object.keys(formDefaultValues[kind]).map((key) => {
+                  switch (key) {
+                    case 'title': {
+                      return (
+                        <InputGroupControl
+                          key={key}
+                          control={control}
+                          name={`form.${index}.title`}
+                          labelText="タイトル"
+                        />
+                      )
+                    }
+                    case 'placeholder': {
+                      return (
+                        <InputGroupControl
+                          key={key}
+                          control={control}
+                          name={`form.${index}.placeholder`}
+                          labelText="プレースホルダー"
+                        />
+                      )
+                    }
+                    case 'description': {
+                      return (
+                        <TextareaGroupControl
+                          key={key}
+                          control={control}
+                          name={`form.${index}.description`}
+                          labelText="説明"
+                        />
+                      )
+                    }
+                    case 'isRequired': {
+                      return (
+                        <SwitchGroupControl
+                          key={key}
+                          name={`form.${index}.isRequired`}
+                          control={control}
+                          defaultValue={false}
+                        >
+                          必須チェックを行う
+                        </SwitchGroupControl>
+                      )
+                    }
+                  }
+                })}
               </motion.div>
             </AnimatePresence>
 

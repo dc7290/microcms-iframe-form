@@ -29,7 +29,7 @@ const Title = ({ index, defaultValue = '', rules, className, ...props }: Props) 
         type="text"
         className={clsx(
           className,
-          'inline rounded border-transparent px-3 py-1 font-medium text-gray-700 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
+          'inline rounded border-transparent px-2 py-1 font-medium focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
         )}
       />
     </div>

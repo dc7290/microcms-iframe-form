@@ -1,6 +1,6 @@
 import { PlusCircleIcon } from '@heroicons/react/outline'
 
-import { FormKind, formKinds } from '~/src/types/Form'
+import { FormKind, formDefaultValues } from '~/src/types/Form'
 
 import { SecondaryButton } from '../SecondaryButton'
 
@@ -16,10 +16,10 @@ const AppendFieldsSection = ({ handleAppend }: Props) => {
         <span>フィールドの追加</span>
       </h2>
       <ul className="flex-1 space-y-4 overflow-y-auto pt-6 pl-4">
-        {(Object.keys(formKinds) as FormKind[]).map((key) => (
+        {(Object.keys(formDefaultValues) as FormKind[]).map((key) => (
           <li key={key}>
             <SecondaryButton type="button" onClick={handleAppend(key)}>
-              {formKinds[key]}
+              {formDefaultValues[key]['title']}
             </SecondaryButton>
           </li>
         ))}

@@ -1,6 +1,6 @@
 import { FieldArrayWithId, UseFieldArrayReturn } from 'react-hook-form'
 
-import { FormValuesType } from '~/src/types/Form'
+import { formDefaultValues, FormValuesType } from '~/src/types/Form'
 
 import { useCurrentTargetIdValue } from '../contexts/currentTagetId'
 import { TextField } from '../fieds/TextField'
@@ -17,18 +17,72 @@ const FieldsList = ({ fields, handleRemove, move, swap }: Props) => {
     <div className="mx-auto max-w-md space-y-14 px-2 pt-14">
       {fields.map((field, i) => {
         const isNoTarget = currentTargetId !== field.fieldId
+        const fieldWrapperProps = {
+          id: field.fieldId,
+          handleRemove: handleRemove(i),
+          move,
+          swap,
+          index: i,
+          length: fields.length,
+        }
         switch (field.kind) {
+          case 'name': {
+            return (
+              <TextField
+                {...fieldWrapperProps}
+                key={field.id}
+                isNoTarget={isNoTarget}
+                defaultValues={formDefaultValues.name}
+              />
+            )
+          }
+          case 'email': {
+            return (
+              <TextField
+                {...fieldWrapperProps}
+                key={field.id}
+                isNoTarget={isNoTarget}
+                defaultValues={formDefaultValues.email}
+              />
+            )
+          }
+          case 'tel': {
+            return (
+              <TextField
+                {...fieldWrapperProps}
+                key={field.id}
+                isNoTarget={isNoTarget}
+                defaultValues={formDefaultValues.tel}
+              />
+            )
+          }
+          case 'organization': {
+            return (
+              <TextField
+                {...fieldWrapperProps}
+                key={field.id}
+                isNoTarget={isNoTarget}
+                defaultValues={formDefaultValues.organization}
+              />
+            )
+          }
+          case 'address-of-one-line': {
+            return (
+              <TextField
+                {...fieldWrapperProps}
+                key={field.id}
+                isNoTarget={isNoTarget}
+                defaultValues={formDefaultValues['address-of-one-line']}
+              />
+            )
+          }
           case 'text-field': {
             return (
               <TextField
+                {...fieldWrapperProps}
                 key={field.id}
-                id={field.fieldId}
-                handleRemove={handleRemove(i)}
-                move={move}
-                swap={swap}
                 isNoTarget={isNoTarget}
-                index={i}
-                length={fields.length}
+                defaultValues={formDefaultValues['text-field']}
               />
             )
           }
