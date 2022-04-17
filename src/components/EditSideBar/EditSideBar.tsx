@@ -6,6 +6,7 @@ import { FormValuesType } from '~/src/types/Form'
 
 import { InputGroupControl } from '../InputGroupControl'
 import { SwitchGroupControl } from '../SwitchGroupControl'
+import { TextareaGroupControl } from '../TextareaGroupControl'
 import { useCurrentTargetIdSetValue, useCurrentTargetIdValue } from '../contexts/currentTagetId'
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
 }
 
 const EditSideBar = ({ fields, handleRemove }: Props) => {
-  const { control } = useFormContext()
+  const { control } = useFormContext<FormValuesType>()
 
   const currentTargetId = useCurrentTargetIdValue()
   const setCurrentTargetId = useCurrentTargetIdSetValue()
@@ -54,6 +55,7 @@ const EditSideBar = ({ fields, handleRemove }: Props) => {
               >
                 <InputGroupControl control={control} name={`form.${index}.title`} labelText="タイトル" />
                 <InputGroupControl control={control} name={`form.${index}.placeholder`} labelText="プレースホルダー" />
+                <TextareaGroupControl control={control} name={`form.${index}.description`} labelText="説明" />
                 <SwitchGroupControl name={`form.${index}.isRequired`} control={control} defaultValue={false}>
                   必須チェックを行う
                 </SwitchGroupControl>

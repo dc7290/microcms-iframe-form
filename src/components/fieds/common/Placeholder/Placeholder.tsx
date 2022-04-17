@@ -10,7 +10,7 @@ type Props = {
   Pick<UseControllerProps<FormValuesType, `form.${number}.placeholder`>, 'defaultValue' | 'rules'>
 
 const Placeholder = ({ index, defaultValue = '', rules, className, ...props }: Props) => {
-  const { control } = useFormContext()
+  const { control } = useFormContext<FormValuesType>()
 
   const name = `form.${index}.placeholder` as const
   const { field } = useController({ name, control, defaultValue, rules })

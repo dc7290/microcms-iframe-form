@@ -10,7 +10,7 @@ type Props = {
   Pick<UseControllerProps<FormValuesType, `form.${number}.description`>, 'defaultValue' | 'rules'>
 
 const Description = ({ index, defaultValue = '', rules, className, ...props }: Props) => {
-  const { control } = useFormContext()
+  const { control } = useFormContext<FormValuesType>()
 
   const name = `form.${index}.description` as const
   const { field } = useController({ name, control, defaultValue, rules })
